@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anbuz.anapibackend.mapper.TeamMapper">
+
+    <resultMap id="BaseResultMap" type="com.anbuz.anapibackend.model.entity.Team">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="maxNum" column="maxNum" jdbcType="INTEGER"/>
+            <result property="expireTime" column="expireTime" jdbcType="TIMESTAMP"/>
+            <result property="userId" column="userId" jdbcType="BIGINT"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="isDelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <resultMap id="TeamUserVOMap" type="com.anbuz.anapibackend.model.vo.TeamUserVO" autoMapping="true">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="maxNum" column="maxNum" jdbcType="INTEGER"/>
+            <result property="expireTime" column="expireTime" jdbcType="TIMESTAMP"/>
+            <result property="userId" column="userId" jdbcType="BIGINT"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <association property="createUser" javaType="com.anbuz.anapibackend.model.vo.UserVO">
+                <id column="userId" property="id" jdbcType="BIGINT"/>
+                <id column="userCreateTime" property="createTime" jdbcType="TIMESTAMP"/>
+                <id column="userUpdateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+            </association>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,description,
+        maxNum,expireTime,userId,
+        status,password,createTime,
+        updateTime,isDelete
+    </sql>
+
+    <select id="listByCondition" resultMap="TeamUserVOMap">
+        select *, u.id as userId, u.createTime as userCreateTime, u.updateTime as userUpdateTime
+        from team as t
+                 left join user as u on t.userId = u.id
+            ${ew.customSqlSegment}
+    </select>
+</mapper>

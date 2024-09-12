@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: userserver
+    password: 2715445931zyh
+    url: jdbc:mysql://139.199.1.50:3306/anapibackend
+  # session 失效时间为 1天
+  session:
+    timeout: 86400
+
+server:
+  port: 8080

@@ -1,0 +1,22 @@
+{
+  "groups": [
+    {
+      "name": "spring.redis",
+      "type": "com.anbuz.anapibackend.config.RedissonConfig",
+      "sourceType": "com.anbuz.anapibackend.config.RedissonConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.redis.host",
+      "type": "java.lang.String",
+      "sourceType": "com.anbuz.anapibackend.config.RedissonConfig"
+    },
+    {
+      "name": "spring.redis.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.anbuz.anapibackend.config.RedissonConfig"
+    }
+  ],
+  "hints": []
+}

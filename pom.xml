@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.4</version>
+    </parent>
+    <packaging>pom</packaging>
+    <groupId>com.anbuz</groupId>
+    <artifactId>an-api</artifactId>
+    <version>0.0.1</version>
+    <name>an-api</name>
+    <description>an-api 接口开放平台</description>
+
+    <properties>
+        <knife4j.version>4.5.0</knife4j.version>
+        <spring-boot-dependencies.version>2.7.0</spring-boot-dependencies.version>
+        <java.version>1.8</java.version>
+        <mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
+        <gson.version>2.9.0</gson.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
+        <junit.version>4.13.2</junit.version>
+        <EasyWeb.version>0.0.5</EasyWeb.version>
+        <an-api-sdk.version>0.0.4</an-api-sdk.version>
+        <hutool-all.version>5.8.16</hutool-all.version>
+        <redisson.version>3.17.5</redisson.version>
+        <weixin-java-pay.version>4.5.0</weixin-java-pay.version>
+        <best-pay-sdk.version>1.3.7</best-pay-sdk.version>
+        <cos_api.version>5.6.97</cos_api.version>
+        <dubbo.version>3.0.9</dubbo.version>
+        <an-api-common.version>0.0.1</an-api-common.version>
+        <nacos-client.version>2.1.0</nacos-client.version>
+    </properties>
+
+    <modules>
+        <module>back-end/an-api-backend</module>
+        <module>back-end/an-api-interface</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- SpringBoot的依赖配置-->
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <!-- https://doc.xiaominfo.com/knife4j/documentation/get_start.html-->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/junit/junit -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>2.6.4</version>
+                    <configuration>
+                        <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
