@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 /**
 * @author anbuz
 * @description 针对表【user(用户)】的数据库操作Mapper
-* @createDate 2024-08-19 16:30:53
-* @Entity com.anbuz.anapibackend.model.entity.User
+* @createDate 2024-09-15 20:02:03
+* @Entity generator.domain.User
 */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {

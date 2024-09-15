@@ -31,7 +31,6 @@ public class InsertUsers {
             user.setEmail("123121@qq.com");
             user.setUserStatus(0);
             user.setUserRole(1);
-            user.setPlanetCode("6870");
             user.setTags("[\"python\", \"java\", \"男\", \"大一\"]");
             userService.save(user);
         }
@@ -55,7 +54,6 @@ public class InsertUsers {
             user.setEmail("123121@qq.com");
             user.setUserStatus(0);
             user.setUserRole(1);
-            user.setPlanetCode("6870");
             user.setTags("[\"python\", \"java\", \"男\", \"大一\"]");
             users.add(user);
         }
@@ -84,7 +82,6 @@ public class InsertUsers {
                 user.setEmail("123121@qq.com");
                 user.setUserStatus(0);
                 user.setUserRole(1);
-                user.setPlanetCode("6870");
                 user.setTags("[\"python\", \"java\", \"男\", \"大一\"]");
                 users.add(user);
                 if (j % 10000 == 0) break;

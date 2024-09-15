@@ -1,7 +1,6 @@
-package com.anbuz.anapibackend.model.vo;
+package com.anbuz.anapibackend.model.model.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,14 +8,19 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.Date;
 
-@Data
+/**
+ * 接口信息
+ * @TableName interface_info
+ */
+@TableName(value ="interface_info")
 @NoArgsConstructor
 @AllArgsConstructor
-public class InterfaceInfoVO implements Serializable {
-    private static final long serialVersionUID = 1L;
+@Data
+public class InterfaceInfo implements Serializable {
     /**
      * id
      */
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -60,6 +64,12 @@ public class InterfaceInfoVO implements Serializable {
     private Integer interfaceStatus;
 
     /**
+     * 逻辑删除
+     */
+    @TableLogic
+    private Integer isDelete;
+
+    /**
      * 创建时间
      */
     private Date createTime;
@@ -69,4 +79,6 @@ public class InterfaceInfoVO implements Serializable {
      */
     private Date updateTime;
 
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }

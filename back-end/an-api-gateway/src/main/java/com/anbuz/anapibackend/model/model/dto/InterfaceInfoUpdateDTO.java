@@ -1,24 +1,17 @@
-package com.anbuz.anapibackend.model.vo;
+package com.anbuz.anapibackend.model.model.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.util.Date;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class InterfaceInfoVO implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class InterfaceInfoUpdateDTO {
     /**
      * id
      */
     private Long id;
-
     /**
      * 接口名称
      */
@@ -33,11 +26,6 @@ public class InterfaceInfoVO implements Serializable {
      * 接口地址
      */
     private String url;
-
-    /**
-     * 创建人id
-     */
-    private Long userId;
 
     /**
      * 请求头
@@ -58,15 +46,4 @@ public class InterfaceInfoVO implements Serializable {
      * 接口状态 0-关闭 1-开启
      */
     private Integer interfaceStatus;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
-
 }

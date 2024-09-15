@@ -127,6 +127,23 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
         return voPage;
     }
 
+    @Override
+    public InterfaceInfoVO getInterfaceByMethodAndURI(String method, String url) {
+        if (StringUtils.isEmpty(method) || StringUtils.isEmpty(url)) {
+            throw new BusinessException(ErrorCode.PARAM_ERROR);
+        }
+        QueryWrapper<InterfaceInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("method", method);
+        queryWrapper.eq("url", url);
+        InterfaceInfo info = this.getOne(queryWrapper);
+        if (info == null) {
+            throw new BusinessException(ErrorCode.NULL_ERROR);
+        }
+        InterfaceInfoVO interfaceInfoVO = new InterfaceInfoVO();
+        BeanUtils.copyProperties(info, interfaceInfoVO);
+        return interfaceInfoVO;
+    }
+
     private InterfaceInfoVO toVO(InterfaceInfo interfaceInfo) {
         if (interfaceInfo == null) {
             return null;

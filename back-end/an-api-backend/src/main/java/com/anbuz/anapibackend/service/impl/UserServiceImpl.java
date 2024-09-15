@@ -11,12 +11,12 @@ import com.anbuz.anapibackend.model.entity.User;
 import com.anbuz.anapibackend.service.UserService;
 import com.anbuz.anapibackend.utils.TagsSimilarityUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
@@ -36,6 +36,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
+@DubboService
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         implements UserService {
 
@@ -196,6 +197,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return user != null && !Objects.equals(user.getUserRole(), UserConstant.DEFAULT_ROLE);
     }
 
+    @Override
     public boolean isAdmin(User user) {
         return user != null && !Objects.equals(user.getUserRole(), UserConstant.DEFAULT_ROLE);
     }
@@ -286,7 +288,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         safetyUser.setUpdateTime(originUser.getUpdateTime());
         safetyUser.setUserRole(originUser.getUserRole());
         safetyUser.setTags(originUser.getTags());
-        safetyUser.setPlanetCode(originUser.getPlanetCode());
+        safetyUser.setAccessKey(originUser.getAccessKey());
         return safetyUser;
     }
 
@@ -338,6 +340,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
         // 3. 更新数据
         return userMapper.updateById(user);
+    }
+
+    /**
+     * 根据 accessKey 获取用户信息（未脱敏，不可公开）
+     */
+    @Override
+    public User getUserByAccessKey(String accessKey) {
+        if (StringUtils.isBlank(accessKey)){
+            throw new BusinessException(ErrorCode.PARAM_ERROR);
+        }
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("accessKey", accessKey);
+        return this.getOne(queryWrapper);
     }
 }
 

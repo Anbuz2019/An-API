@@ -1,6 +1,6 @@
 package com.anbuz.anapigateway;
 
-import com.anbuz.anapibackend.service.InterfaceInfoService;
+import com.anbuz.anapibackend.service.UserService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,11 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 class AnApiGatewayApplicationTests {
 
     @DubboReference
-    InterfaceInfoService interfaceInfoService;
+    UserService userService;
 
     @Test
     void testDubbo() {
-        System.out.println(interfaceInfoService.list());
+        System.out.println(userService.getUserByAccessKey("12345"));
     }
 
 }

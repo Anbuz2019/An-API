@@ -1,4 +1,4 @@
-package com.anbuz.anapibackend.model.entity;
+package com.anbuz.anapibackend.model.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
 

@@ -1,4 +1,4 @@
-package com.anbuz.anapibackend.model.vo;
+package com.anbuz.anapibackend.model.model.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

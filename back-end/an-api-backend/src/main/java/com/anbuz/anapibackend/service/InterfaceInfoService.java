@@ -23,4 +23,6 @@ public interface InterfaceInfoService extends IService<InterfaceInfo> {
     InterfaceInfoVO getInterfaceInfoVO(InterfaceInfo interfaceInfo);
 
     Page<InterfaceInfoVO> getInterfaceInfoVOPage(Page<InterfaceInfo> interfaceInfoPage);
+
+    InterfaceInfoVO getInterfaceByMethodAndURI(String method, String uri);
 }
