@@ -29,4 +29,10 @@ class AnApiBackendApplicationTests {
         List<User> userList = userService.searchByTags(tagNameList);
         Assertions.assertNotNull(userList);
     }
+
+    @Test
+    public void testSDK() {
+
+    }
+
 }

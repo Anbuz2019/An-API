@@ -1,0 +1,28 @@
+server:
+  port: 3970
+
+spring:
+  profiles:
+    active: dev
+  cloud:
+    gateway:
+      routes:
+        - id: an-api-interface
+          uri: http://localhost:6868
+          predicates:
+            - Path=/api/**
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: trace
+dubbo:
+  registry:
+    address: nacos://localhost:8848
+  application:
+    name: an-api-dubbo-consumer
+  consumer:
+    timeout: 3000
+

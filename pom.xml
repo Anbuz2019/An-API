@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.4</version>
+        <version>2.7.3</version>
     </parent>
     <packaging>pom</packaging>
     <groupId>com.anbuz</groupId>
@@ -20,25 +20,28 @@
         <spring-boot-dependencies.version>2.7.0</spring-boot-dependencies.version>
         <java.version>1.8</java.version>
         <mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
-        <gson.version>2.9.0</gson.version>
+        <gson.version>2.11.0</gson.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
         <junit.version>4.13.2</junit.version>
         <EasyWeb.version>0.0.5</EasyWeb.version>
         <an-api-sdk.version>0.0.4</an-api-sdk.version>
         <hutool-all.version>5.8.16</hutool-all.version>
-        <redisson.version>3.17.5</redisson.version>
+        <redisson.version>2.6.4</redisson.version>
         <weixin-java-pay.version>4.5.0</weixin-java-pay.version>
         <best-pay-sdk.version>1.3.7</best-pay-sdk.version>
         <cos_api.version>5.6.97</cos_api.version>
         <dubbo.version>3.0.9</dubbo.version>
         <an-api-common.version>0.0.1</an-api-common.version>
         <nacos-client.version>2.1.0</nacos-client.version>
+        <mybatis-plus.version>3.5.7</mybatis-plus.version>
+        <hu-tool.version>5.8.15</hu-tool.version>
     </properties>
 
     <modules>
         <module>back-end/an-api-backend</module>
         <module>back-end/an-api-interface</module>
+        <module>back-end/an-api-gateway</module>
     </modules>
 
     <dependencyManagement>
@@ -62,6 +65,26 @@
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hu-tool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${redisson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

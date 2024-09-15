@@ -34,3 +34,16 @@ mybatis-plus:
 
 knife4j:
   enable: true
+
+
+an-api:
+  client:
+    access-key: anbuz
+    secret-key: 12345678
+
+dubbo:
+  registry:
+    address: nacos://localhost:8848
+  application:
+    name: an-api-dubbo-provider
+
