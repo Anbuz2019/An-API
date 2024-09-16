@@ -1,8 +1,8 @@
 package com.anbuz.anapibackend.service;
 
-import com.anbuz.anapibackend.model.dto.UserLoginDTO;
-import com.anbuz.anapibackend.model.dto.UserRegisterDTO;
-import com.anbuz.anapibackend.model.entity.User;
+import com.anbuz.anapicommon.model.dto.UserLoginDTO;
+import com.anbuz.anapicommon.model.dto.UserRegisterDTO;
+import com.anbuz.anapicommon.model.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,9 +36,4 @@ public interface UserService extends IService<User> {
     Integer updateUser(User user);
 
     boolean isAdmin(User user);
-
-    /**
-     * 根据 accessKey 获取用户信息（未脱敏，不可公开）
-     */
-    User getUserByAccessKey(String accessKey);
 }

@@ -2,12 +2,12 @@ package com.anbuz.anapigateway.filter;
 
 import cn.hutool.json.JSONUtil;
 import com.alibaba.nacos.common.utils.StringUtils;
-import com.anbuz.anapibackend.model.entity.User;
-import com.anbuz.anapibackend.model.vo.InterfaceInfoVO;
-import com.anbuz.anapibackend.service.InterfaceInfoService;
-import com.anbuz.anapibackend.service.UserInterfaceInvokeService;
-import com.anbuz.anapibackend.service.UserService;
-import com.anbuz.anapigateway.utils.SignUtils;
+import com.anbuz.anapicommon.model.entity.User;
+import com.anbuz.anapicommon.model.vo.InterfaceInfoVO;
+import com.anbuz.anapicommon.service.inner.InnerInterfaceInfoService;
+import com.anbuz.anapicommon.service.inner.InnerUserInterfaceInvokeService;
+import com.anbuz.anapicommon.service.inner.InnerUserService;
+import com.anbuz.anapicommon.utils.SignUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -35,13 +35,13 @@ import java.util.Map;
 public class ApiGlobalFilter implements GlobalFilter, Ordered {
 
     @DubboReference
-    InterfaceInfoService interfaceInfoService;
+    InnerInterfaceInfoService innerInterfaceInfoService;
 
     @DubboReference
-    UserService userService;
+    InnerUserService innerUserService;
 
     @DubboReference
-    UserInterfaceInvokeService userInterfaceInvokeService;
+    InnerUserInterfaceInvokeService innerUserInterfaceInvokeService;
 
     private static final Long FIVE_MINUTES = 5 * 60L;
 
@@ -97,7 +97,7 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
             return forbidden(response, "已超时");
         }
         // 校验参数
-        User user = userService.getUserByAccessKey(accessKey);
+        User user = innerUserService.getUserByAccessKey(accessKey);
         if (user == null || user.getSecretKey() == null) {
             return forbidden(response, "AK不正确");
         }
@@ -115,7 +115,7 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
             return forbidden(response, "签名不合法");
         }
         // 检查是否存在该接口
-        InterfaceInfoVO interfaceInfo = interfaceInfoService.getInterfaceByMethodAndURI(method, uri);
+        InterfaceInfoVO interfaceInfo = innerInterfaceInfoService.getInterfaceByMethodAndURI(method, uri);
         if (interfaceInfo == null || interfaceInfo.getId() < 0 || interfaceInfo.getInterfaceStatus() == 1) {
             return forbidden(response, "接口不存在或已经关闭");
         }
@@ -128,7 +128,7 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
     private Mono<Void> invokeManage(ServerWebExchange exchange, GatewayFilterChain chain,
                                     InterfaceInfoVO interfaceInfo, User user) {
         // 调用次数加1
-        boolean invoke = userInterfaceInvokeService.invoke(user.getId(), interfaceInfo.getId());
+        boolean invoke = innerUserInterfaceInvokeService.invoke(user.getId(), interfaceInfo.getId());
         if (!invoke) {
             return forbidden(exchange.getResponse(), "调用失败");
         }

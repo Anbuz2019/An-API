@@ -1,8 +1,8 @@
 package com.anbuz.anapibackend.service;
 
-import com.anbuz.anapibackend.model.dto.*;
-import com.anbuz.anapibackend.model.entity.Team;
-import com.anbuz.anapibackend.model.vo.TeamUserVO;
+import com.anbuz.anapicommon.model.dto.*;
+import com.anbuz.anapicommon.model.entity.Team;
+import com.anbuz.anapicommon.model.vo.TeamUserVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;

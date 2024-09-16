@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
-import com.anbuz.anapibackend.model.entity.User;
+import com.anbuz.anapicommon.model.entity.User;
 import com.anbuz.anapibackend.service.UserService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;

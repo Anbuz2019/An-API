@@ -1,4 +1,4 @@
-package com.anbuz.anapigateway.utils;
+package com.anbuz.anapicommon.utils;
 
 import cn.hutool.crypto.digest.MD5;
 import cn.hutool.json.JSONUtil;

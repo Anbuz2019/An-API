@@ -4,14 +4,12 @@ import com.anbuz.anapibackend.common.BaseResponse;
 import com.anbuz.anapibackend.constant.UserConstant;
 import com.anbuz.anapibackend.exception.BusinessException;
 import com.anbuz.anapibackend.exception.ErrorCode;
-import com.anbuz.anapibackend.model.dto.UserLoginDTO;
-import com.anbuz.anapibackend.model.dto.UserRegisterDTO;
-import com.anbuz.anapibackend.model.entity.User;
 import com.anbuz.anapibackend.service.UserService;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.anbuz.anapicommon.model.dto.UserLoginDTO;
+import com.anbuz.anapicommon.model.dto.UserRegisterDTO;
+import com.anbuz.anapicommon.model.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -46,9 +44,9 @@ public class UserController {
      * 用户获取个人信息
      */
     @GetMapping("current")
-    public BaseResponse<User> getCurrentUser(HttpServletRequest request){
+    public BaseResponse<User> getCurrentUser(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute(UserConstant.USER_LOGIN_STATE);
-        if (user == null){
+        if (user == null) {
             throw new BusinessException(ErrorCode.NULL_ERROR);
         }
         Long userId = user.getId();
@@ -69,7 +67,7 @@ public class UserController {
      */
     @GetMapping("/search")
     @ApiOperation("根据用户名查询用户")
-    public BaseResponse<List<User>> searchUsers(String username, HttpServletRequest request){
+    public BaseResponse<List<User>> searchUsers(String username, HttpServletRequest request) {
         return BaseResponse.success(userService.searchUsers(username, request));
     }
 
@@ -78,7 +76,7 @@ public class UserController {
      */
     @GetMapping("/recommend")
     @ApiOperation("主页用户推荐")
-    public BaseResponse<List<User>> recommendUsers(Integer pageSize, Integer pageNum){
+    public BaseResponse<List<User>> recommendUsers(Integer pageSize, Integer pageNum) {
         return BaseResponse.success(userService.recommendUsers(pageSize, pageNum));
     }
 
@@ -98,7 +96,7 @@ public class UserController {
     @PostMapping("/logout")
     @ApiOperation("用户登出")
     public BaseResponse<Integer> userLogout(HttpServletRequest request) {
-        if (request==null) throw new BusinessException(ErrorCode.NULL_ERROR, "找不到当前用户");
+        if (request == null) throw new BusinessException(ErrorCode.NULL_ERROR, "找不到当前用户");
         return BaseResponse.success(userService.userLogout(request));
     }
 
@@ -108,7 +106,7 @@ public class UserController {
     @ApiOperation("搜索指定标签的用户")
     @GetMapping("/search/tags")
     public BaseResponse<List<User>> searchUsersByTags(@RequestParam(required = false) List<String> tagNameList) {
-        if (CollectionUtils.isEmpty(tagNameList)){
+        if (CollectionUtils.isEmpty(tagNameList)) {
             throw new BusinessException(ErrorCode.PARAM_ERROR, "标签至少要有一个");
         }
         List<User> userList = userService.searchByTags(tagNameList);
@@ -122,7 +120,7 @@ public class UserController {
     @PostMapping("/update")
     public BaseResponse<Integer> updateUser(@RequestBody User user) {
         // 校验参数是否为空
-        if (user == null){
+        if (user == null) {
             throw new BusinessException(ErrorCode.PARAM_ERROR);
         }
         Integer res = userService.updateUser(user);
@@ -131,7 +129,7 @@ public class UserController {
 
     @GetMapping("/match")
     public BaseResponse<List<User>> matchUsers(@RequestParam(required = false) Integer num) {
-        if (num <= 0 || num > 20){
+        if (num <= 0 || num > 20) {
             throw new BusinessException(ErrorCode.PARAM_ERROR);
         }
         List<User> userList = userService.matchUser(num);

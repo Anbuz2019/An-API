@@ -1,6 +1,6 @@
 package com.anbuz.anapibackend.utils;
 
-import com.anbuz.anapibackend.model.entity.User;
+import com.anbuz.anapicommon.model.entity.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.Test;

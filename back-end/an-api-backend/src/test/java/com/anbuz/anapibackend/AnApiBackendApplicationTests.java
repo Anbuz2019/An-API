@@ -1,6 +1,6 @@
 package com.anbuz.anapibackend;
 
-import com.anbuz.anapibackend.model.entity.User;
+import com.anbuz.anapicommon.model.entity.User;
 import com.anbuz.anapibackend.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

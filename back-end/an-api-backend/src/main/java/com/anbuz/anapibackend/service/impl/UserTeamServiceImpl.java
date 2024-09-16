@@ -1,7 +1,7 @@
 package com.anbuz.anapibackend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.anbuz.anapibackend.model.entity.UserTeam;
+import com.anbuz.anapicommon.model.entity.UserTeam;
 import com.anbuz.anapibackend.service.UserTeamService;
 import com.anbuz.anapibackend.mapper.UserTeamMapper;
 import org.springframework.stereotype.Service;

@@ -42,6 +42,7 @@
         <module>back-end/an-api-backend</module>
         <module>back-end/an-api-interface</module>
         <module>back-end/an-api-gateway</module>
+        <module>back-end/an-api-common</module>
     </modules>
 
     <dependencyManagement>

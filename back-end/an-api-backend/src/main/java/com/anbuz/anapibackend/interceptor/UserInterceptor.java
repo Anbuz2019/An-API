@@ -4,7 +4,7 @@ import com.anbuz.anapibackend.common.BaseContext;
 import com.anbuz.anapibackend.constant.UserConstant;
 import com.anbuz.anapibackend.exception.BusinessException;
 import com.anbuz.anapibackend.exception.ErrorCode;
-import com.anbuz.anapibackend.model.entity.User;
+import com.anbuz.anapicommon.model.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;

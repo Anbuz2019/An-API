@@ -1,6 +1,6 @@
 package com.anbuz.anapibackend.mapper;
 
-import com.anbuz.anapibackend.model.entity.User;
+import com.anbuz.anapicommon.model.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

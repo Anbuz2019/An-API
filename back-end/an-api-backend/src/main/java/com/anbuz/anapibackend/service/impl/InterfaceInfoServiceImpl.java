@@ -1,31 +1,22 @@
 package com.anbuz.anapibackend.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import com.anbuz.anapibackend.common.BaseContext;
-import com.anbuz.anapibackend.constant.CommonConstant;
 import com.anbuz.anapibackend.exception.BusinessException;
 import com.anbuz.anapibackend.exception.ErrorCode;
 import com.anbuz.anapibackend.exception.ThrowUtils;
 import com.anbuz.anapibackend.mapper.InterfaceInfoMapper;
-import com.anbuz.anapibackend.model.dto.InterfaceInfoQueryDTO;
-import com.anbuz.anapibackend.model.entity.InterfaceInfo;
-import com.anbuz.anapibackend.model.entity.User;
-import com.anbuz.anapibackend.model.vo.InterfaceInfoVO;
 import com.anbuz.anapibackend.service.InterfaceInfoService;
-import com.anbuz.anapibackend.utils.SqlUtils;
+import com.anbuz.anapicommon.model.dto.InterfaceInfoQueryDTO;
+import com.anbuz.anapicommon.model.entity.InterfaceInfo;
+import com.anbuz.anapicommon.model.vo.InterfaceInfoVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -34,7 +25,6 @@ import java.util.stream.Collectors;
  * @createDate 2024-09-11 17:11:26
  */
 @Service
-@DubboService
 public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, InterfaceInfo>
         implements InterfaceInfoService {
 
@@ -127,22 +117,6 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
         return voPage;
     }
 
-    @Override
-    public InterfaceInfoVO getInterfaceByMethodAndURI(String method, String url) {
-        if (StringUtils.isEmpty(method) || StringUtils.isEmpty(url)) {
-            throw new BusinessException(ErrorCode.PARAM_ERROR);
-        }
-        QueryWrapper<InterfaceInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("method", method);
-        queryWrapper.eq("url", url);
-        InterfaceInfo info = this.getOne(queryWrapper);
-        if (info == null) {
-            throw new BusinessException(ErrorCode.NULL_ERROR);
-        }
-        InterfaceInfoVO interfaceInfoVO = new InterfaceInfoVO();
-        BeanUtils.copyProperties(info, interfaceInfoVO);
-        return interfaceInfoVO;
-    }
 
     private InterfaceInfoVO toVO(InterfaceInfo interfaceInfo) {
         if (interfaceInfo == null) {

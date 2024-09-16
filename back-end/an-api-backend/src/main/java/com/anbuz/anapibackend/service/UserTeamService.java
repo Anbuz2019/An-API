@@ -1,6 +1,6 @@
 package com.anbuz.anapibackend.service;
 
-import com.anbuz.anapibackend.model.entity.UserTeam;
+import com.anbuz.anapicommon.model.entity.UserTeam;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

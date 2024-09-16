@@ -1,13 +1,12 @@
 package com.anbuz.anapibackend.service;
 
-import com.anbuz.anapibackend.model.dto.InterfaceInfoQueryDTO;
-import com.anbuz.anapibackend.model.entity.InterfaceInfo;
-import com.anbuz.anapibackend.model.vo.InterfaceInfoVO;
+import com.anbuz.anapicommon.model.dto.InterfaceInfoQueryDTO;
+import com.anbuz.anapicommon.model.entity.InterfaceInfo;
+import com.anbuz.anapicommon.model.vo.InterfaceInfoVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
 * @author anbuz
@@ -23,6 +22,4 @@ public interface InterfaceInfoService extends IService<InterfaceInfo> {
     InterfaceInfoVO getInterfaceInfoVO(InterfaceInfo interfaceInfo);
 
     Page<InterfaceInfoVO> getInterfaceInfoVOPage(Page<InterfaceInfo> interfaceInfoPage);
-
-    InterfaceInfoVO getInterfaceByMethodAndURI(String method, String uri);
 }

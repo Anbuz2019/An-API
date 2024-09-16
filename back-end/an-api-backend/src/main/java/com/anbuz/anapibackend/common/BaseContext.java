@@ -1,6 +1,6 @@
 package com.anbuz.anapibackend.common;
 
-import com.anbuz.anapibackend.model.entity.User;
+import com.anbuz.anapicommon.model.entity.User;
 
 public class BaseContext {
 

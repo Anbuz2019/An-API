@@ -3,7 +3,7 @@ package com.anbuz.anapibackend.job;
 import com.anbuz.anapibackend.common.BaseContext;
 import com.anbuz.anapibackend.constant.RedissonLockConstant;
 import com.anbuz.anapibackend.mapper.UserMapper;
-import com.anbuz.anapibackend.model.entity.User;
+import com.anbuz.anapicommon.model.entity.User;
 import com.anbuz.anapibackend.service.UserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
