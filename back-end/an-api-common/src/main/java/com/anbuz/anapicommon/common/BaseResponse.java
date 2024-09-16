@@ -1,6 +1,6 @@
-package com.anbuz.anapibackend.common;
+package com.anbuz.anapicommon.common;
 
-import com.anbuz.anapibackend.exception.ErrorCode;
+import com.anbuz.anapicommon.common.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

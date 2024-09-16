@@ -1,4 +1,4 @@
-package com.anbuz.anapibackend.exception;
+package com.anbuz.anapicommon.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

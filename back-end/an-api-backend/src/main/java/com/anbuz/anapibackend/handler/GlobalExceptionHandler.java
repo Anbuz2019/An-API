@@ -1,8 +1,8 @@
 package com.anbuz.anapibackend.handler;
 
-import com.anbuz.anapibackend.common.BaseResponse;
+import com.anbuz.anapicommon.common.BaseResponse;
 import com.anbuz.anapibackend.exception.BusinessException;
-import com.anbuz.anapibackend.exception.ErrorCode;
+import com.anbuz.anapicommon.common.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -18,7 +18,7 @@ public class GlobalExceptionHandler{
         return BaseResponse.error(e.getCode(), e.getMessage(), e.getDescription());
     }
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(Exception.class)
     public BaseResponse runtimeExceptionHandler(RuntimeException e){
         log.error("RUNTIME EXCEPTION: {} , {}", e.getMessage(), e.getStackTrace());
         return BaseResponse.error(ErrorCode.SYSTEM_ERROR, e.getMessage());

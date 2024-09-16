@@ -1,7 +1,7 @@
 package com.anbuz.anapibackend.service.impl.inner;
 
 import com.anbuz.anapibackend.exception.BusinessException;
-import com.anbuz.anapibackend.exception.ErrorCode;
+import com.anbuz.anapicommon.common.ErrorCode;
 import com.anbuz.anapibackend.mapper.InterfaceInfoMapper;
 import com.anbuz.anapicommon.model.entity.InterfaceInfo;
 import com.anbuz.anapicommon.model.vo.InterfaceInfoVO;

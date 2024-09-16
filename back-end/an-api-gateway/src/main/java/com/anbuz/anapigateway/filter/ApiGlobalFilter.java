@@ -8,6 +8,7 @@ import com.anbuz.anapicommon.service.inner.InnerInterfaceInfoService;
 import com.anbuz.anapicommon.service.inner.InnerUserInterfaceInvokeService;
 import com.anbuz.anapicommon.service.inner.InnerUserService;
 import com.anbuz.anapicommon.utils.SignUtils;
+import com.anbuz.anapigateway.exception.GatewayException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -16,9 +17,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -79,30 +78,29 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
         String sign = headers.getFirst("sign");
         String path = exchange.getRequest().getPath().toString();
         String method = exchange.getRequest().getMethodValue();
-        ServerHttpResponse response = exchange.getResponse();
         String uri;
         try {
             uri = new URI(exchange.getRequest().getURI().toString().trim()).getPath();
         } catch (URISyntaxException e) {
-            return forbidden(response, "uri格式不正确");
+            throw new GatewayException("uri格式不正确");
         }
 
         // 请求头中参数必须完整
         if (StringUtils.isAnyBlank(sign, accessKey, timestamp)) {
-            return forbidden(response, "请求参数不完整");
+            throw new GatewayException("请求参数不完整");
         }
         // 防重发XHR
         long currentTime = System.currentTimeMillis() / 1000;
         if (timestamp == null || currentTime - Long.parseLong(timestamp) >= FIVE_MINUTES) {
-            return forbidden(response, "已超时");
+            throw new GatewayException("已超时");
         }
         // 校验参数
         User user = innerUserService.getUserByAccessKey(accessKey);
         if (user == null || user.getSecretKey() == null) {
-            return forbidden(response, "AK不正确");
+            throw new GatewayException("AK不正确");
         }
         if (user.getUserStatus() == 1) {
-            return forbidden(response, "用户被封禁");
+            throw new GatewayException("用户被封禁");
         }
         Map<String, String> header = new HashMap<>();
         header.put("accessKey", accessKey);
@@ -112,12 +110,12 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
         header.put("timestamp", timestamp);
         String check = SignUtils.getSign(JSONUtil.toJsonStr(header), user.getSecretKey());
         if (!check.equals(sign)) {
-            return forbidden(response, "签名不合法");
+            throw new GatewayException("签名不合法");
         }
         // 检查是否存在该接口
         InterfaceInfoVO interfaceInfo = innerInterfaceInfoService.getInterfaceByMethodAndURI(method, uri);
         if (interfaceInfo == null || interfaceInfo.getId() < 0 || interfaceInfo.getInterfaceStatus() == 1) {
-            return forbidden(response, "接口不存在或已经关闭");
+            throw new GatewayException("接口不存在或已经关闭");
         }
         return invokeManage(exchange, chain, interfaceInfo, user);
     }
@@ -130,19 +128,13 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
         // 调用次数加1
         boolean invoke = innerUserInterfaceInvokeService.invoke(user.getId(), interfaceInfo.getId());
         if (!invoke) {
-            return forbidden(exchange.getResponse(), "调用失败");
+            throw new GatewayException("调用失败");
         }
         return chain.filter(exchange);
     }
 
     private String decodeBody(DataBuffer buffer) {
         return StandardCharsets.UTF_8.decode(buffer.asByteBuffer()).toString();
-    }
-
-    private static Mono<Void> forbidden(ServerHttpResponse response, String logInfo) {
-        log.info("请求被拒绝，原因: {}", logInfo);
-        response.setStatusCode(HttpStatus.FORBIDDEN);
-        return response.setComplete();
     }
 
     @Override

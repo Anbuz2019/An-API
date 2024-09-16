@@ -1,7 +1,7 @@
 package com.anbuz.anapibackend.service.impl.inner;
 
 import com.anbuz.anapibackend.exception.BusinessException;
-import com.anbuz.anapibackend.exception.ErrorCode;
+import com.anbuz.anapicommon.common.ErrorCode;
 import com.anbuz.anapibackend.mapper.UserMapper;
 import com.anbuz.anapibackend.service.UserService;
 import com.anbuz.anapicommon.model.entity.User;

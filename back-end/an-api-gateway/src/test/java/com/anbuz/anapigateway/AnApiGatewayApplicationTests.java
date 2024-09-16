@@ -1,6 +1,6 @@
 package com.anbuz.anapigateway;
 
-import com.anbuz.anapibackend.inner.UserService;
+import com.anbuz.anapicommon.service.inner.InnerUserService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,11 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 class AnApiGatewayApplicationTests {
 
     @DubboReference
-    UserService userService;
+    InnerUserService innerUserService;
 
     @Test
     void testDubbo() {
-        System.out.println(userService.getUserByAccessKey("12345"));
+        System.out.println(innerUserService.getUserByAccessKey("12345"));
     }
-
 }

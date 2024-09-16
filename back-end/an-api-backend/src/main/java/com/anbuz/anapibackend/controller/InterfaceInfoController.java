@@ -2,10 +2,10 @@ package com.anbuz.anapibackend.controller;
 
 import com.anbuz.anapibackend.annotation.AuthCheck;
 import com.anbuz.anapibackend.common.BaseContext;
-import com.anbuz.anapibackend.common.BaseResponse;
+import com.anbuz.anapicommon.common.BaseResponse;
 import com.anbuz.anapibackend.constant.UserConstant;
 import com.anbuz.anapibackend.exception.BusinessException;
-import com.anbuz.anapibackend.exception.ErrorCode;
+import com.anbuz.anapicommon.common.ErrorCode;
 import com.anbuz.anapibackend.exception.ThrowUtils;
 import com.anbuz.anapicommon.model.dto.DeleteDTO;
 import com.anbuz.anapicommon.model.dto.InterfaceInfoAddDTO;

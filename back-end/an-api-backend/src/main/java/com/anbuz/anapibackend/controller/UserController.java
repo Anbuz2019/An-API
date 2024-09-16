@@ -1,9 +1,9 @@
 package com.anbuz.anapibackend.controller;
 
-import com.anbuz.anapibackend.common.BaseResponse;
+import com.anbuz.anapicommon.common.BaseResponse;
 import com.anbuz.anapibackend.constant.UserConstant;
 import com.anbuz.anapibackend.exception.BusinessException;
-import com.anbuz.anapibackend.exception.ErrorCode;
+import com.anbuz.anapicommon.common.ErrorCode;
 import com.anbuz.anapibackend.service.UserService;
 import com.anbuz.anapicommon.model.dto.UserLoginDTO;
 import com.anbuz.anapicommon.model.dto.UserRegisterDTO;

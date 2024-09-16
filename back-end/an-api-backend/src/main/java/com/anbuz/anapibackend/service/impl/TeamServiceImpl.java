@@ -3,7 +3,7 @@ package com.anbuz.anapibackend.service.impl;
 import com.anbuz.anapibackend.common.BaseContext;
 import com.anbuz.anapibackend.constant.RedissonLockConstant;
 import com.anbuz.anapibackend.exception.BusinessException;
-import com.anbuz.anapibackend.exception.ErrorCode;
+import com.anbuz.anapicommon.common.ErrorCode;
 import com.anbuz.anapibackend.mapper.TeamMapper;
 import com.anbuz.anapicommon.model.dto.*;
 import com.anbuz.anapicommon.model.entity.Team;

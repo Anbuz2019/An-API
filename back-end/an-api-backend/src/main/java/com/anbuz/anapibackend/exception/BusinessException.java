@@ -1,5 +1,6 @@
 package com.anbuz.anapibackend.exception;
 
+import com.anbuz.anapicommon.common.ErrorCode;
 import lombok.Getter;
 
 /**
