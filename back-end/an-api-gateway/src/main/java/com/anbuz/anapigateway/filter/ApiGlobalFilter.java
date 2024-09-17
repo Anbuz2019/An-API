@@ -19,6 +19,7 @@ import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -55,20 +56,23 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
 
         // 缓存请求体以供后续使用
         // todo 其实也可以使用 exchange.getRequest().getQueryParams()
-        return DataBufferUtils.join(exchange.getRequest().getBody())
-                .flatMap(buffer -> {
-                    String body = decodeBody(buffer);
-                    // 重新包装请求体
-                    ServerHttpRequest mutatedRequest = exchange.getRequest()
-                            .mutate()
-                            .build();
-                    ServerWebExchange mutatedExchange = exchange.mutate()
-                            .request(mutatedRequest)
-                            .build();
-
-                    // 验证请求信息
-                    return validateParameters(mutatedExchange, chain, body);
-                });
+//        return DataBufferUtils.join(exchange.getRequest().getBody())
+//                .flatMap(buffer -> {
+//                    String body = decodeBody(buffer);
+//                    // 重新包装请求体
+//                    ServerHttpRequest mutatedRequest = exchange.getRequest()
+//                            .mutate()
+//                            .build();
+//                    ServerWebExchange mutatedExchange = exchange.mutate()
+//                            .request(mutatedRequest)
+//                            .build();
+//
+//                    // 验证请求信息
+//                    return validateParameters(mutatedExchange, chain, body);
+//                });
+        Map<String, String> params = exchange.getRequest().getQueryParams().toSingleValueMap();
+        String body = JSONUtil.toJsonStr(params);
+        return validateParameters(exchange, chain, body);
     }
 
     private Mono<Void> validateParameters(ServerWebExchange exchange, GatewayFilterChain chain, String body) {

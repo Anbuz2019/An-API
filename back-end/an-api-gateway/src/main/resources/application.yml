@@ -2,6 +2,8 @@ server:
   port: 3970
 
 spring:
+  application:
+    name: an-api-gateway
   profiles:
     active: dev
   cloud:
@@ -11,6 +13,10 @@ spring:
           uri: http://localhost:6868
           predicates:
             - Path=/api/**
+    nacos:
+      config:
+        file-extension: yml
+        server-addr: localhost:8848
 
 logging:
   level:
@@ -18,6 +24,7 @@ logging:
       springframework:
         cloud:
           gateway: trace
+
 dubbo:
   registry:
     address: nacos://localhost:8848
