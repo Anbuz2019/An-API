@@ -3,15 +3,21 @@ package com.anbuz.anapibackend.service.impl;
 import com.anbuz.anapibackend.common.BaseContext;
 import com.anbuz.anapibackend.exception.BusinessException;
 import com.anbuz.anapibackend.service.UserService;
+import com.anbuz.anapicommon.common.BaseResponse;
 import com.anbuz.anapicommon.common.ErrorCode;
 import com.anbuz.anapibackend.exception.ThrowUtils;
 import com.anbuz.anapibackend.mapper.InterfaceInfoMapper;
 import com.anbuz.anapibackend.service.InterfaceInfoService;
 import com.anbuz.anapicommon.model.dto.InterfaceInfoOnlineDTO;
 import com.anbuz.anapicommon.model.dto.InterfaceInfoQueryDTO;
+import com.anbuz.anapicommon.model.dto.InterfaceInvokeDTO;
 import com.anbuz.anapicommon.model.entity.InterfaceInfo;
 import com.anbuz.anapicommon.model.entity.User;
 import com.anbuz.anapicommon.model.vo.InterfaceInfoVO;
+import com.anbuz.anapisdk.client.AnApiClient;
+import com.anbuz.anapisdk.model.enums.RequestMethodEnum;
+import com.anbuz.anapisdk.model.request.BaseRequest;
+import com.anbuz.anapisdk.service.ApiService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -22,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -36,6 +43,9 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
 
     @Resource
     UserService userService;
+
+    @Resource
+    ApiService apiService;
 
     @Override
     public void validInterfaceInfo(InterfaceInfo interfaceInfo, boolean add) {
@@ -166,6 +176,30 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
         interfaceInfo.setId(info.getId());
         interfaceInfo.setInterfaceStatus(0);
         return this.updateById(interfaceInfo);
+    }
+
+    @Override
+    public Object invokeInterface(InterfaceInvokeDTO interfaceInvokeDTO) {
+        if (interfaceInvokeDTO == null || interfaceInvokeDTO.getInterfaceId() == null) {
+            throw new BusinessException(ErrorCode.PARAM_ERROR);
+        }
+        // 查询id对应的接口
+        InterfaceInfo interfaceInfo = this.getById(interfaceInvokeDTO.getInterfaceId());
+        if (interfaceInfo == null || interfaceInfo.getUrl()==null) {
+            throw new BusinessException(ErrorCode.NULL_ERROR);
+        }
+        // 尝试调用接口
+        Long userId = BaseContext.getCurrentUser().getId();
+        User user = userService.getById(userId);
+        AnApiClient anApiClient = new AnApiClient(user.getAccessKey(), user.getSecretKey());
+        apiService.setAnApiClient(anApiClient);
+        BaseRequest baseRequest = new BaseRequest();
+        baseRequest.setRequestUrl(interfaceInfo.getUrl());
+        Map<String, Object> requestParams = interfaceInvokeDTO.getRequestParams();
+        baseRequest.setRequestParams(requestParams);
+        baseRequest.setRequestMethod(RequestMethodEnum.valueOf(interfaceInfo.getMethod()));
+        Object res = apiService.request(baseRequest);
+        return res;
     }
 
 

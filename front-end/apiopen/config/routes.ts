@@ -102,63 +102,68 @@ export default [
   //   ],
   // },
   {
-    path: '/list',
-    icon: 'table',
-    name: 'list',
-    routes: [
+    path: '/details/:id',  // 详情页路径，动态参数 :id
+    component: './details',  // 详情页组件
+  },
+  // {
+  //   path: '/list',
+  //   icon: 'table',
+  //   name: 'list',
+  //   routes: [
+  //     {
+  //       path: '/list/search',
+  //       name: 'search-list',
+  //       component: './list/search',
+  //       routes: [
+  //         {
+  //           path: '/list/search',
+  //           redirect: '/list/search/articles',
+  //         },
+  //         {
+  //           name: 'articles',
+  //           icon: 'smile',
+  //           path: '/list/search/articles',
+  //           component: './list/search/articles',
+  //         },
+  //         {
+  //           name: 'projects',
+  //           icon: 'smile',
+  //           path: '/list/search/projects',
+  //           component: './list/search/projects',
+  //         },
+  //         {
+  //           name: 'applications',
+  //           icon: 'smile',
+  //           path: '/list/search/applications',
+  //           component: './list/search/applications',
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       path: '/list',
+  //       redirect: '/list/table-list',
+  //     },
       {
-        path: '/list/search',
-        name: 'search-list',
-        component: './list/search',
-        routes: [
-          {
-            path: '/list/search',
-            redirect: '/list/search/articles',
-          },
-          {
-            name: 'articles',
-            icon: 'smile',
-            path: '/list/search/articles',
-            component: './list/search/articles',
-          },
-          {
-            name: 'projects',
-            icon: 'smile',
-            path: '/list/search/projects',
-            component: './list/search/projects',
-          },
-          {
-            name: 'applications',
-            icon: 'smile',
-            path: '/list/search/applications',
-            component: './list/search/applications',
-          },
-        ],
-      },
-      {
-        path: '/list',
-        redirect: '/list/table-list',
-      },
-      {
-        name: 'table-list',
-        icon: 'smile',
-        path: '/list/table-list',
+        name: '接口管理',
+        icon: 'crown',
+        path: '/table-list',
         component: './table-list',
+        access: 'canAdmin',
       },
       {
-        name: 'basic-list',
+        name: '接口列表',
         icon: 'smile',
-        path: '/list/basic-list',
+        path: '/basic-list',
         component: './list/basic-list',
       },
-      {
-        name: 'card-list',
-        icon: 'smile',
-        path: '/list/card-list',
-        component: './list/card-list',
-      },
-    ],
-  },
+    //   {
+    //     name: 'card-list',
+    //     icon: 'smile',
+    //     path: '/list/card-list',
+    //     component: './list/card-list',
+    //   },
+    // ],
+  // },
   // {
   //   path: '/profile',
   //   name: 'profile',
@@ -257,10 +262,10 @@ export default [
   //     },
   //   ],
   // },
-  // {
-  //   path: '/',
-  //   redirect: '/dashboard/analysis',
-  // },
+  {
+    path: '/',
+    redirect: '/basic-list',
+  },
   {
     component: '404',
     path: '*',

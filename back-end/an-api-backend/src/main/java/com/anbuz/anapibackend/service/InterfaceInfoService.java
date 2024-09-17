@@ -2,6 +2,7 @@ package com.anbuz.anapibackend.service;
 
 import com.anbuz.anapicommon.model.dto.InterfaceInfoOnlineDTO;
 import com.anbuz.anapicommon.model.dto.InterfaceInfoQueryDTO;
+import com.anbuz.anapicommon.model.dto.InterfaceInvokeDTO;
 import com.anbuz.anapicommon.model.entity.InterfaceInfo;
 import com.anbuz.anapicommon.model.vo.InterfaceInfoVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -27,4 +28,6 @@ public interface InterfaceInfoService extends IService<InterfaceInfo> {
     Boolean onlineInterfaceInfo(InterfaceInfoOnlineDTO interfaceInfoOnlineDTO);
 
     Boolean offlineInterfaceInfo(InterfaceInfoOnlineDTO interfaceInfoOnlineDTO);
+
+    Object invokeInterface(InterfaceInvokeDTO interfaceInvokeDTO);
 }

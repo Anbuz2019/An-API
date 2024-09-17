@@ -43,7 +43,14 @@ declare namespace API {
 
   type BaseResponseLong_ = {
     code?: number;
-    data?: string;
+    data?: number;
+    description?: string;
+    msg?: string;
+  };
+
+  type BaseResponseObject_ = {
+    code?: number;
+    data?: Record<string, any>;
     description?: string;
     msg?: string;
   };
@@ -77,28 +84,28 @@ declare namespace API {
   };
 
   type DeleteDTO = {
-    id?: string;
+    id?: number;
   };
 
   type deleteUserUsingPOSTParams = {
     /** id */
-    id?: string;
+    id?: number;
   };
 
   type getByTeamIdUsingGETParams = {
     /** id */
-    id?: string;
+    id?: number;
   };
 
   type getInterfaceInfoVOByIdUsingGETParams = {
     /** id */
-    id?: string;
+    id?: number;
   };
 
   type InterfaceInfo = {
     costScore?: number;
     createTime?: string;
-    id?: string;
+    id?: number;
     interfaceDescription?: string;
     interfaceStatus?: number;
     isDelete?: number;
@@ -111,7 +118,7 @@ declare namespace API {
     responseParams?: Record<string, any>;
     updateTime?: string;
     url?: string;
-    userId?: string;
+    userId?: number;
   };
 
   type InterfaceInfoAddDTO = {
@@ -129,12 +136,12 @@ declare namespace API {
   };
 
   type InterfaceInfoOnlineDTO = {
-    id?: string;
+    id?: number;
   };
 
   type InterfaceInfoQueryDTO = {
     current?: number;
-    id?: string;
+    id?: number;
     interfaceStatus?: number;
     method?: string;
     name?: string;
@@ -143,12 +150,12 @@ declare namespace API {
     sortField?: string;
     sortOrder?: string;
     url?: string;
-    userId?: string;
+    userId?: number;
   };
 
   type InterfaceInfoUpdateDTO = {
     costScore?: number;
-    id?: string;
+    id?: number;
     interfaceDescription?: string;
     interfaceStatus?: number;
     method?: string;
@@ -162,44 +169,53 @@ declare namespace API {
   };
 
   type InterfaceInfoVO = {
+    costScore?: number;
     createTime?: string;
-    id?: string;
+    id?: number;
     interfaceDescription?: string;
     interfaceStatus?: number;
     method?: string;
     name?: string;
+    requestExample?: Record<string, any>;
     requestHeader?: string;
+    requestParams?: Record<string, any>;
     responseHeader?: string;
+    responseParams?: Record<string, any>;
     updateTime?: string;
     url?: string;
-    userId?: string;
+    userId?: number;
+  };
+
+  type InterfaceInvokeDTO = {
+    interfaceId?: number;
+    requestParams?: Record<string, any>;
   };
 
   type listMyCreateTeamUsingGETParams = {
-    id?: string;
-    idList?: string[];
+    id?: number;
+    idList?: number[];
     maxNum?: number;
     searchText?: string;
     status?: number;
-    userId?: string;
+    userId?: number;
   };
 
   type listMyJoinTeamUsingGETParams = {
-    id?: string;
-    idList?: string[];
+    id?: number;
+    idList?: number[];
     maxNum?: number;
     searchText?: string;
     status?: number;
-    userId?: string;
+    userId?: number;
   };
 
   type listPageUsingGETParams = {
-    id?: string;
-    idList?: string[];
+    id?: number;
+    idList?: number[];
     maxNum?: number;
     searchText?: string;
     status?: number;
-    userId?: string;
+    userId?: number;
     /** pageNum */
     pageNum?: number;
     /** pageSize */
@@ -207,12 +223,12 @@ declare namespace API {
   };
 
   type listUsingGETParams = {
-    id?: string;
-    idList?: string[];
+    id?: number;
+    idList?: number[];
     maxNum?: number;
     searchText?: string;
     status?: number;
-    userId?: string;
+    userId?: number;
   };
 
   type matchUsersUsingGETParams = {
@@ -299,19 +315,19 @@ declare namespace API {
   };
 
   type PageInterfaceInfo_ = {
-    current?: string;
-    pages?: string;
+    current?: number;
+    pages?: number;
     records?: InterfaceInfo[];
-    size?: string;
-    total?: string;
+    size?: number;
+    total?: number;
   };
 
   type PageInterfaceInfoVO_ = {
-    current?: string;
-    pages?: string;
+    current?: number;
+    pages?: number;
     records?: InterfaceInfoVO[];
-    size?: string;
-    total?: string;
+    size?: number;
+    total?: number;
   };
 
   type recommendUsersUsingGETParams = {
@@ -335,14 +351,14 @@ declare namespace API {
     createTime?: string;
     description?: string;
     expireTime?: string;
-    id?: string;
+    id?: number;
     isDelete?: number;
     maxNum?: number;
     name?: string;
     password?: string;
     status?: number;
     updateTime?: string;
-    userId?: string;
+    userId?: number;
   };
 
   type TeamAddDTO = {
@@ -352,22 +368,22 @@ declare namespace API {
     name?: string;
     password?: string;
     status?: number;
-    userId?: string;
+    userId?: number;
   };
 
   type TeamJoinDTO = {
     password?: string;
-    teamId?: string;
+    teamId?: number;
   };
 
   type TeamQuitDTO = {
-    teamId?: string;
+    teamId?: number;
   };
 
   type TeamUpdateDTO = {
     description?: string;
     expireTime?: string;
-    id?: string;
+    id?: number;
     name?: string;
     password?: string;
     status?: number;
@@ -380,12 +396,12 @@ declare namespace API {
     expireTime?: string;
     hasJoin?: boolean;
     hasJoinNum?: number;
-    id?: string;
+    id?: number;
     maxNum?: number;
     name?: string;
     status?: number;
     updateTime?: string;
-    userId?: string;
+    userId?: number;
   };
 
   type User = {
@@ -394,7 +410,7 @@ declare namespace API {
     createTime?: string;
     email?: string;
     gender?: number;
-    id?: string;
+    id?: number;
     isDelete?: number;
     phone?: string;
     secretKey?: string;
@@ -424,7 +440,7 @@ declare namespace API {
     createTime?: string;
     email?: string;
     gender?: number;
-    id?: string;
+    id?: number;
     phone?: string;
     planetCode?: string;
     tags?: string;

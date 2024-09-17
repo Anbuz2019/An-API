@@ -185,4 +185,13 @@ public class InterfaceInfoController {
         Boolean res = interfaceInfoService.offlineInterfaceInfo(interfaceInfoOnlineDTO);
         return BaseResponse.success(res);
     }
+
+    @PostMapping("invoke")
+    public BaseResponse<Object> invokeInterface(@RequestBody InterfaceInvokeDTO interfaceInvokeDTO) {
+        if (interfaceInvokeDTO == null || interfaceInvokeDTO.getInterfaceId() == null) {
+            throw new BusinessException(ErrorCode.PARAM_ERROR);
+        }
+        Object res = interfaceInfoService.invokeInterface(interfaceInvokeDTO);
+        return BaseResponse.success(res);
+    }
 }
