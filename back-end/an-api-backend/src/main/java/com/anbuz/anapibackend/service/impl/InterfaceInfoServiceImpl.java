@@ -1,12 +1,16 @@
 package com.anbuz.anapibackend.service.impl;
 
+import com.anbuz.anapibackend.common.BaseContext;
 import com.anbuz.anapibackend.exception.BusinessException;
+import com.anbuz.anapibackend.service.UserService;
 import com.anbuz.anapicommon.common.ErrorCode;
 import com.anbuz.anapibackend.exception.ThrowUtils;
 import com.anbuz.anapibackend.mapper.InterfaceInfoMapper;
 import com.anbuz.anapibackend.service.InterfaceInfoService;
+import com.anbuz.anapicommon.model.dto.InterfaceInfoOnlineDTO;
 import com.anbuz.anapicommon.model.dto.InterfaceInfoQueryDTO;
 import com.anbuz.anapicommon.model.entity.InterfaceInfo;
+import com.anbuz.anapicommon.model.entity.User;
 import com.anbuz.anapicommon.model.vo.InterfaceInfoVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -16,7 +20,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -27,6 +33,9 @@ import java.util.stream.Collectors;
 @Service
 public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, InterfaceInfo>
         implements InterfaceInfoService {
+
+    @Resource
+    UserService userService;
 
     @Override
     public void validInterfaceInfo(InterfaceInfo interfaceInfo, boolean add) {
@@ -115,6 +124,48 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
         voPage.setRecords(voList);
 
         return voPage;
+    }
+
+    @Override
+    public Boolean onlineInterfaceInfo(InterfaceInfoOnlineDTO interfaceInfoOnlineDTO) {
+        if (interfaceInfoOnlineDTO==null || interfaceInfoOnlineDTO.getId()<0){
+            throw new BusinessException(ErrorCode.PARAM_ERROR);
+        }
+        InterfaceInfo info = this.getById(interfaceInfoOnlineDTO.getId());
+        if (info == null) {
+            throw new BusinessException(ErrorCode.NULL_ERROR);
+        }
+        Long userId = BaseContext.getCurrentUser().getId();
+        User user = userService.getById(userId);
+        // 只有管理员以及创建者可以发布
+        if (!userService.isAdmin(user) && !Objects.equals(info.getUserId(), userId)) {
+            throw new BusinessException(ErrorCode.NOT_AUTH);
+        }
+        InterfaceInfo interfaceInfo = new InterfaceInfo();
+        interfaceInfo.setId(info.getId());
+        interfaceInfo.setInterfaceStatus(1);
+        return this.updateById(interfaceInfo);
+    }
+
+    @Override
+    public Boolean offlineInterfaceInfo(InterfaceInfoOnlineDTO interfaceInfoOnlineDTO) {
+        if (interfaceInfoOnlineDTO==null || interfaceInfoOnlineDTO.getId()<0){
+            throw new BusinessException(ErrorCode.PARAM_ERROR);
+        }
+        InterfaceInfo info = this.getById(interfaceInfoOnlineDTO.getId());
+        if (info == null) {
+            throw new BusinessException(ErrorCode.NULL_ERROR);
+        }
+        Long userId = BaseContext.getCurrentUser().getId();
+        User user = userService.getById(userId);
+        // 只有管理员以及创建者可以下线
+        if (!userService.isAdmin(user) && !Objects.equals(info.getUserId(), userId)) {
+            throw new BusinessException(ErrorCode.NOT_AUTH);
+        }
+        InterfaceInfo interfaceInfo = new InterfaceInfo();
+        interfaceInfo.setId(info.getId());
+        interfaceInfo.setInterfaceStatus(0);
+        return this.updateById(interfaceInfo);
     }
 
 

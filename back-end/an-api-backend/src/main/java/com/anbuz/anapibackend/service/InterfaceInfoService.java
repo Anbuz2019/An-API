@@ -1,5 +1,6 @@
 package com.anbuz.anapibackend.service;
 
+import com.anbuz.anapicommon.model.dto.InterfaceInfoOnlineDTO;
 import com.anbuz.anapicommon.model.dto.InterfaceInfoQueryDTO;
 import com.anbuz.anapicommon.model.entity.InterfaceInfo;
 import com.anbuz.anapicommon.model.vo.InterfaceInfoVO;
@@ -22,4 +23,8 @@ public interface InterfaceInfoService extends IService<InterfaceInfo> {
     InterfaceInfoVO getInterfaceInfoVO(InterfaceInfo interfaceInfo);
 
     Page<InterfaceInfoVO> getInterfaceInfoVOPage(Page<InterfaceInfo> interfaceInfoPage);
+
+    Boolean onlineInterfaceInfo(InterfaceInfoOnlineDTO interfaceInfoOnlineDTO);
+
+    Boolean offlineInterfaceInfo(InterfaceInfoOnlineDTO interfaceInfoOnlineDTO);
 }

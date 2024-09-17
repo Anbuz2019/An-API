@@ -14,6 +14,10 @@
             <result property="responseHeader" column="responseHeader" jdbcType="VARCHAR"/>
             <result property="interfaceDescription" column="interfaceDescription" jdbcType="VARCHAR"/>
             <result property="interfaceStatus" column="interfaceStatus" jdbcType="TINYINT"/>
+            <result property="costScore" column="costScore" jdbcType="INTEGER"/>
+            <result property="requestParams" column="requestParams" jdbcType="OTHER"/>
+            <result property="responseParams" column="responseParams" jdbcType="OTHER"/>
+            <result property="requestExample" column="requestExample" jdbcType="INTEGER"/>
             <result property="isDelete" column="isDelete" jdbcType="TINYINT"/>
             <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
@@ -23,6 +27,8 @@
         id,name,method,
         url,userId,requestHeader,
         responseHeader,interfaceDescription,interfaceStatus,
-        isDelete,createTime,updateTime
+        costScore,requestParams,responseParams,
+        requestExample,isDelete,createTime,
+        updateTime
     </sql>
 </mapper>

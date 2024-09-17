@@ -7,7 +7,7 @@ import React from 'react';
 export type Props = {
   columns: ProColumns<API.InterfaceInfo>[];
   onCancel: () => void;
-  onSubmit: (values: API.InterfaceInfo) => Promise<void>;
+  onSubmit: (values: API.InterfaceInfo) => void;
   visible: boolean;
 };
 

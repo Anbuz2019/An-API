@@ -92,6 +92,36 @@ export async function listInterfaceInfoVoByPageUsingPost(
   });
 }
 
+/** offlineInterfaceInfo POST /interfaceInfo/offline */
+export async function offlineInterfaceInfoUsingPost(
+  body: API.InterfaceInfoOnlineDTO,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseBoolean_>('/interfaceInfo/offline', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** onlineInterfaceInfo POST /interfaceInfo/online */
+export async function onlineInterfaceInfoUsingPost(
+  body: API.InterfaceInfoOnlineDTO,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseBoolean_>('/interfaceInfo/online', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** updateInterfaceInfo POST /interfaceInfo/update */
 export async function updateInterfaceInfoUsingPost(
   body: API.InterfaceInfoUpdateDTO,

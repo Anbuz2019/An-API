@@ -43,6 +43,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.anbuz</groupId>
+            <artifactId>an-api-sdk</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
@@ -58,29 +63,15 @@
             <version>3.3.0</version>
         </dependency>
         <dependency>
-            <groupId>com.anbuz</groupId>
-            <artifactId>an-api-sdk</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-nacos-spring-boot-starter</artifactId>
             <version>3.3.0</version>
         </dependency>
-        <!--引导文件bootstrap-->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
-            <version>4.0.0</version>
+            <groupId>com.alibaba.boot</groupId>
+            <artifactId>nacos-config-spring-boot-starter</artifactId>
+            <version>0.2.12</version>
         </dependency>
-        <!--Nacos配置中心客户端-->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <version>2021.0.1.0</version>
-        </dependency>
-
-
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -89,6 +80,11 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
             <version>1.8.21</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>

@@ -96,6 +96,7 @@ declare namespace API {
   };
 
   type InterfaceInfo = {
+    costScore?: number;
     createTime?: string;
     id?: string;
     interfaceDescription?: string;
@@ -103,21 +104,32 @@ declare namespace API {
     isDelete?: number;
     method?: string;
     name?: string;
+    requestExample?: Record<string, any>;
     requestHeader?: string;
+    requestParams?: Record<string, any>;
     responseHeader?: string;
+    responseParams?: Record<string, any>;
     updateTime?: string;
     url?: string;
     userId?: string;
   };
 
   type InterfaceInfoAddDTO = {
+    costScore?: number;
     interfaceDescription?: string;
     interfaceStatus?: number;
     method?: string;
     name?: string;
+    requestExample?: Record<string, any>;
     requestHeader?: string;
+    requestParams?: Record<string, any>;
     responseHeader?: string;
+    responseParams?: Record<string, any>;
     url?: string;
+  };
+
+  type InterfaceInfoOnlineDTO = {
+    id?: string;
   };
 
   type InterfaceInfoQueryDTO = {
@@ -135,13 +147,17 @@ declare namespace API {
   };
 
   type InterfaceInfoUpdateDTO = {
+    costScore?: number;
     id?: string;
     interfaceDescription?: string;
     interfaceStatus?: number;
     method?: string;
     name?: string;
+    requestExample?: Record<string, any>;
     requestHeader?: string;
+    requestParams?: Record<string, any>;
     responseHeader?: string;
+    responseParams?: Record<string, any>;
     url?: string;
   };
 
@@ -373,6 +389,7 @@ declare namespace API {
   };
 
   type User = {
+    accessKey?: string;
     avatarUrl?: string;
     createTime?: string;
     email?: string;
@@ -380,7 +397,7 @@ declare namespace API {
     id?: string;
     isDelete?: number;
     phone?: string;
-    planetCode?: string;
+    secretKey?: string;
     tags?: string;
     updateTime?: string;
     userAccount?: string;

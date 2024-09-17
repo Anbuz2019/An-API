@@ -13,10 +13,6 @@ spring:
           uri: http://localhost:6868
           predicates:
             - Path=/api/**
-    nacos:
-      config:
-        file-extension: yml
-        server-addr: localhost:8848
 
 logging:
   level:

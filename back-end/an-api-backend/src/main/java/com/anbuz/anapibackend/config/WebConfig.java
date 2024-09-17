@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000", "http://localhost:8001", "http://localhost:*") // 允许的来源
+                .allowedOrigins("http://localhost:3000", "http://localhost:8001", "http://localhost:8000") // 允许的来源
                 .allowCredentials(true) // 允许凭证（Cookie）
                 .allowedMethods("*") // 允许的方法
                 .allowedHeaders("*"); // 允许的头部

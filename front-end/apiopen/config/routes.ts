@@ -43,35 +43,35 @@ export default [
       },
     ],
   },
-  {
-    path: '/dashboard',
-    name: 'dashboard',
-    icon: 'dashboard',
-    routes: [
-      {
-        path: '/dashboard',
-        redirect: '/dashboard/analysis',
-      },
-      {
-        name: 'analysis',
-        icon: 'smile',
-        path: '/dashboard/analysis',
-        component: './dashboard/analysis',
-      },
-      {
-        name: 'monitor',
-        icon: 'smile',
-        path: '/dashboard/monitor',
-        component: './dashboard/monitor',
-      },
-      {
-        name: 'workplace',
-        icon: 'smile',
-        path: '/dashboard/workplace',
-        component: './dashboard/workplace',
-      },
-    ],
-  },
+  // {
+  //   path: '/dashboard',
+  //   name: 'dashboard',
+  //   icon: 'dashboard',
+  //   routes: [
+  //     {
+  //       path: '/dashboard',
+  //       redirect: '/dashboard/analysis',
+  //     },
+  //     {
+  //       name: 'analysis',
+  //       icon: 'smile',
+  //       path: '/dashboard/analysis',
+  //       component: './dashboard/analysis',
+  //     },
+  //     {
+  //       name: 'monitor',
+  //       icon: 'smile',
+  //       path: '/dashboard/monitor',
+  //       component: './dashboard/monitor',
+  //     },
+  //     {
+  //       name: 'workplace',
+  //       icon: 'smile',
+  //       path: '/dashboard/workplace',
+  //       component: './dashboard/workplace',
+  //     },
+  //   ],
+  // },
   // {
   //   path: '/form',
   //   icon: 'form',
@@ -159,29 +159,29 @@ export default [
       },
     ],
   },
-  {
-    path: '/profile',
-    name: 'profile',
-    icon: 'profile',
-    routes: [
-      {
-        path: '/profile',
-        redirect: '/profile/basic',
-      },
-      {
-        name: 'basic',
-        icon: 'smile',
-        path: '/profile/basic',
-        component: './profile/basic',
-      },
-      {
-        name: 'advanced',
-        icon: 'smile',
-        path: '/profile/advanced',
-        component: './profile/advanced',
-      },
-    ],
-  },
+  // {
+  //   path: '/profile',
+  //   name: 'profile',
+  //   icon: 'profile',
+  //   routes: [
+  //     {
+  //       path: '/profile',
+  //       redirect: '/profile/basic',
+  //     },
+  //     {
+  //       name: 'basic',
+  //       icon: 'smile',
+  //       path: '/profile/basic',
+  //       component: './profile/basic',
+  //     },
+  //     {
+  //       name: 'advanced',
+  //       icon: 'smile',
+  //       path: '/profile/advanced',
+  //       component: './profile/advanced',
+  //     },
+  //   ],
+  // },
   // {
   //   name: 'result',
   //   icon: 'CheckCircleOutlined',
@@ -234,33 +234,33 @@ export default [
   //     },
   //   ],
   // },
-  {
-    name: 'account',
-    icon: 'user',
-    path: '/account',
-    routes: [
-      {
-        path: '/account',
-        redirect: '/account/center',
-      },
-      {
-        name: 'center',
-        icon: 'smile',
-        path: '/account/center',
-        component: './account/center',
-      },
-      {
-        name: 'settings',
-        icon: 'smile',
-        path: '/account/settings',
-        component: './account/settings',
-      },
-    ],
-  },
-  {
-    path: '/',
-    redirect: '/dashboard/analysis',
-  },
+  // {
+  //   name: 'account',
+  //   icon: 'user',
+  //   path: '/account',
+  //   routes: [
+  //     {
+  //       path: '/account',
+  //       redirect: '/account/center',
+  //     },
+  //     {
+  //       name: 'center',
+  //       icon: 'smile',
+  //       path: '/account/center',
+  //       component: './account/center',
+  //     },
+  //     {
+  //       name: 'settings',
+  //       icon: 'smile',
+  //       path: '/account/settings',
+  //       component: './account/settings',
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: '/',
+  //   redirect: '/dashboard/analysis',
+  // },
   {
     component: '404',
     path: '*',

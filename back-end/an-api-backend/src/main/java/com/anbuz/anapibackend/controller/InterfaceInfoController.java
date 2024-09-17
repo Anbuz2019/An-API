@@ -7,10 +7,7 @@ import com.anbuz.anapibackend.constant.UserConstant;
 import com.anbuz.anapibackend.exception.BusinessException;
 import com.anbuz.anapicommon.common.ErrorCode;
 import com.anbuz.anapibackend.exception.ThrowUtils;
-import com.anbuz.anapicommon.model.dto.DeleteDTO;
-import com.anbuz.anapicommon.model.dto.InterfaceInfoAddDTO;
-import com.anbuz.anapicommon.model.dto.InterfaceInfoQueryDTO;
-import com.anbuz.anapicommon.model.dto.InterfaceInfoUpdateDTO;
+import com.anbuz.anapicommon.model.dto.*;
 import com.anbuz.anapicommon.model.entity.InterfaceInfo;
 import com.anbuz.anapicommon.model.entity.User;
 import com.anbuz.anapicommon.model.vo.InterfaceInfoVO;
@@ -73,7 +70,8 @@ public class InterfaceInfoController {
         InterfaceInfo oldInterfaceInfo = interfaceInfoService.getById(id);
         ThrowUtils.throwIf(oldInterfaceInfo == null, ErrorCode.NULL_ERROR);
         // 仅本人或管理员可删除
-        User user = BaseContext.getCurrentUser();
+        Long userId = BaseContext.getCurrentUser().getId();
+        User user = userService.getById(userId);
         if (!oldInterfaceInfo.getUserId().equals(user.getId()) && !userService.isAdmin(user)) {
             throw new BusinessException(ErrorCode.NOT_AUTH);
         }
@@ -170,4 +168,21 @@ public class InterfaceInfoController {
         return BaseResponse.success(result);
     }
 
+    @PostMapping("/online")
+    public BaseResponse<Boolean> onlineInterfaceInfo(@RequestBody InterfaceInfoOnlineDTO interfaceInfoOnlineDTO) {
+        if (interfaceInfoOnlineDTO == null || interfaceInfoOnlineDTO.getId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAM_ERROR);
+        }
+        Boolean res = interfaceInfoService.onlineInterfaceInfo(interfaceInfoOnlineDTO);
+        return BaseResponse.success(res);
+    }
+
+    @PostMapping("/offline")
+    public BaseResponse<Boolean> offlineInterfaceInfo(@RequestBody InterfaceInfoOnlineDTO interfaceInfoOnlineDTO) {
+        if (interfaceInfoOnlineDTO == null || interfaceInfoOnlineDTO.getId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAM_ERROR);
+        }
+        Boolean res = interfaceInfoService.offlineInterfaceInfo(interfaceInfoOnlineDTO);
+        return BaseResponse.success(res);
+    }
 }

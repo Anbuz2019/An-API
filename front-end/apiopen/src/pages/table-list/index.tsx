@@ -14,7 +14,9 @@ import UpdateForm from './components/UpdateForm';
 import UpdateModal from "@/pages/table-list/components/UpdateModal";
 import {addInterfaceInfoUsingPost,
   updateInterfaceInfoUsingPost,
-  deleteInterfaceInfoUsingPost} from "@/services/openapi-backend/aPixiangguanjiekou";
+  deleteInterfaceInfoUsingPost,
+  onlineInterfaceInfoUsingPost,
+  offlineInterfaceInfoUsingPost} from "@/services/openapi-backend/aPixiangguanjiekou";
 import CreateModal from "@/pages/table-list/components/CreateModal";
 import {PlusOutlined} from "@ant-design/icons";
 
@@ -74,28 +76,47 @@ const TableList: React.FC = () => {
       title: '请求参数',
       dataIndex: 'requestParams',
       valueType: 'jsonCode',
+      hideInForm: false,
+    },
+    {
+      title: '响应参数',
+      dataIndex: 'responseParams',
+      valueType: 'jsonCode',
+      hideInForm: false,
+    },
+    {
+      title: '请求示例',
+      dataIndex: 'requestExample',
+      valueType: 'jsonCode',
+      hideInForm: false,
+    },
+    {
+      title: '消耗积分',
+      dataIndex: 'costScore',
+      valueType: 'digit',
+      hideInForm: false,
     },
     {
       title: 'url',
       dataIndex: 'url',
       valueType: 'text',
     },
-    {
-      title: '请求头',
-      dataIndex: 'requestHeader',
-      hideInForm: false,
-      valueType: 'text',
-    },
-    {
-      title: '响应头',
-      dataIndex: 'responseHeader',
-      hideInForm: false,
-      valueType: 'text',
-    },
+    // {
+    //   title: '请求头',
+    //   dataIndex: 'requestHeader',
+    //   hideInForm: false,
+    //   valueType: 'text',
+    // },
+    // {
+    //   title: '响应头',
+    //   dataIndex: 'responseHeader',
+    //   hideInForm: false,
+    //   valueType: 'text',
+    // },
     {
       title: '状态',
       dataIndex: 'interfaceStatus',
-      hideInForm: false,
+      hideInForm: true,
       valueEnum: {
         0: {
           text: '关闭',
@@ -111,46 +132,71 @@ const TableList: React.FC = () => {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
-      render: (_, record) => [
-        <a
-          key="config"
-          onClick={() => {
-            handleUpdateModalVisible(true);
-            setCurrentRow(record);
-          }}
-        >
-          修改
-        </a>,
-        record.interfaceStatus === 0 ? <a
-          key="config"
-          onClick={() => {
-            handleOnline(record);
-          }}
-        >
-          发布
-        </a> : null,
-        record.interfaceStatus === 1 ? <Button
-          type="text"
-          key="config"
-          danger
-          onClick={() => {
-            handleOffline(record);
-          }}
-        >
-          下线
-        </Button> : null,
-        <Button
-          type="text"
-          key="config"
-          danger
-          onClick={() => {
-            handleRemove(record);
-          }}
-        >
-          删除
-        </Button>,
-      ],
-    },
+      render: (_, record) => {
+        const operations = [];
+
+        // 修改按钮
+        operations.push(
+          <a
+            key="edit"
+            onClick={() => {
+              handleUpdateModalVisible(true);
+              setCurrentRow(record);
+            }}
+          >
+            修改
+          </a>
+        );
+
+        // 发布按钮，仅当状态为 0 时显示
+        if (record.interfaceStatus === 0) {
+          operations.push(
+            <Button
+              type="text"
+              key="publish"
+              onClick={() => {
+                handleOnline(record);
+              }}
+            >
+              发布
+            </Button>
+          );
+        }
+
+        // 下线按钮，仅当状态为 1 时显示
+        if (record.interfaceStatus === 1) {
+          operations.push(
+            <Button
+              type="text"
+              key="offline"
+              danger
+              onClick={() => {
+                handleOffline(record);
+              }}
+            >
+              下线
+            </Button>
+          );
+        }
+
+        // 删除按钮
+        operations.push(
+          <Button
+            type="text"
+            key="delete"
+            danger
+            onClick={() => {
+              handleRemove(record);
+            }}
+          >
+            删除
+          </Button>
+        );
+
+        return operations;
+      }
+    }
+
   ];
 
   /**
@@ -158,17 +204,21 @@ const TableList: React.FC = () => {
    *
    * @param record
    */
-  const handleOnline = async (record: API.IdRequest) => {
+  const handleOnline = async (record: API.InterfaceInfoOnlineDTO) => {
     const hide = message.loading('发布中');
     if (!record) return true;
     try {
-      await onlineInterfaceInfoUsingPOST({
+      const res = await onlineInterfaceInfoUsingPost({
         id: record.id
       });
       hide();
-      message.success('操作成功');
-      actionRef.current?.reload();
-      return true;
+      if (res.code===0 && res.data===true){
+        message.success('操作成功');
+        actionRef.current?.reload();
+        return true;
+      }else{
+        throw new Error(res.msg);
+      }
     } catch (error: any) {
       hide();
       message.error('操作失败，' + error.message);
@@ -181,17 +231,21 @@ const TableList: React.FC = () => {
    *
    * @param record
    */
-  const handleOffline = async (record: API.IdRequest) => {
+  const handleOffline = async (record: API.InterfaceInfoOnlineDTO) => {
     const hide = message.loading('发布中');
     if (!record) return true;
     try {
-      await offlineInterfaceInfoUsingPOST({
+      const res = await offlineInterfaceInfoUsingPost({
         id: record.id
       });
       hide();
-      message.success('操作成功');
-      actionRef.current?.reload();
-      return true;
+      if (res.code===0 && res.data===true){
+        message.success('操作成功');
+        actionRef.current?.reload();
+        return true;
+      }else{
+        throw new Error(res.msg);
+      }
     } catch (error: any) {
       hide();
       message.error('操作失败，' + error.message);
@@ -209,13 +263,17 @@ const TableList: React.FC = () => {
     const hide = message.loading('正在删除');
     if (!record) return true;
     try {
-      await deleteInterfaceInfoUsingPost({
+      const res = await deleteInterfaceInfoUsingPost({
         id: record.id
       });
       hide();
-      message.success('删除成功');
-      actionRef.current?.reload();
-      return true;
+      if (res?.code === 0){
+        message.success('删除成功');
+        actionRef.current?.reload();
+        return true;
+      } else{
+        throw new Error(res.msg);
+      }
     } catch (error: any) {
       hide();
       message.error('删除失败，' + error.message);
